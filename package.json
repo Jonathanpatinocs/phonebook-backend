@@ -1,0 +1,27 @@
+{
+  "name": "phonebookbackend",
+  "version": "1.0.0",
+  "description": "Backend for a phonebook application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jonathanpatinocs/phonebook-backend.git"
+  },
+  "author": "Jonathan Patino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jonathanpatinocs/phonebook-backend/issues"
+  },
+  "homepage": "https://github.com/Jonathanpatinocs/phonebook-backend#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
