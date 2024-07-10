@@ -4,6 +4,16 @@ const app = express()
 
 app.use(express.json())
 
+const requestLogger = (request, response, next) => {
+    console.log('Method:', request.method);
+    console.log('Path:', request.path);
+    console.log('Body:', request.body);
+    console.log('---');
+    next()
+}
+app.use(requestLogger)
+
+
 let phonebook = [
   { 
     "id": "1",
@@ -60,9 +70,14 @@ app.delete('/api/persons/:id', (request, response) => {
 app.post('/api/persons', (request, response) => {
     const body = request.body
 
-    if (!body.name) {
+    if (!body.name || !body.number) {
         return response.status(400).json({
             error: 'content missing'
+        })
+    }
+    if ( phonebook.find(persons => persons.name === body.name)) {
+        return response.status(400).json({
+            error: 'name must be unique'
         })
     }
     const id = String(Math.floor(Math.random() * 1000))
@@ -75,6 +90,11 @@ app.post('/api/persons', (request, response) => {
     phonebook = phonebook.concat(newPerson)
     response.json(newPerson)
 })
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({error: 'unknown endpoint'})
+}
+app.use(unknownEndpoint)
+
 const PORT = 3001
 app.listen(PORT, ()=> {
     console.log(`Server running on port ${PORT}`)
